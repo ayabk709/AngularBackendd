@@ -117,6 +117,15 @@ public class BankAccountServiceimpl  implements BankAccountService {
     }
 
     @Override
+    public List<custumorDTO> Search(String keyword) {
+  List<Custumor> custumors=custumorrepisitory.Search("%"+keyword+"%");
+
+          List<custumorDTO> custumorodtos= custumors.stream().map(custumor -> bankAccountMapper.fromCustumor(custumor)).collect(Collectors.toList());
+        return custumorodtos;
+
+    }
+
+    @Override
     public BankAccountDTO getBankAccount(String id) throws BankAccountNotFoundException {
         BankAccount b = bankAccountrepisitory.findById(id)
                 .orElseThrow(() -> new BankAccountNotFoundException("Bank account not found"));
@@ -217,16 +226,17 @@ public class BankAccountServiceimpl  implements BankAccountService {
         return accountOperations.stream().map(op -> BankAccountMapperImpl.fromAccountOperation(op)).collect(Collectors.toList());
     }
 
+
     @Override
     public AccountHistoryDTO getAccountHistory(String accountId, int page, int size) throws BankAccountNotFoundException {
         BankAccount bankAccount=bankAccountrepisitory.findById(accountId).orElse(null);
         if(bankAccount==null) throw new BankAccountNotFoundException("Account not Found");
-        Page<Operation> accountOperations =accountOperationRepisitory.findByBankAccountIdOrderByOperationDateDesc(accountId, PageRequest.of(page, size));
+        Page<Operation> accountOperations = accountOperationRepisitory.findByBankAccountIdOrderByOperationDateDesc(accountId, PageRequest.of(page, size));
         AccountHistoryDTO accountHistoryDTO=new AccountHistoryDTO();
         List<OperationDTO> accountOperationDTOS = accountOperations.getContent().stream().map(op -> bankAccountMapper.fromAccountOperation(op)).collect(Collectors.toList());
         accountHistoryDTO.setAccountOperationDTOS(accountOperationDTOS);
         accountHistoryDTO.setAccountId(bankAccount.getId());
-        accountHistoryDTO.setBalance(bankAccount.getBalance ());
+        accountHistoryDTO.setBalance(bankAccount.getBalance());
         accountHistoryDTO.setCurrentPage(page);
         accountHistoryDTO.setPageSize(size);
         accountHistoryDTO.setTotalPages(accountOperations.getTotalPages());

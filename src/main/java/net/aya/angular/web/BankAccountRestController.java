@@ -1,9 +1,7 @@
 package net.aya.angular.web;
 
 import lombok.AllArgsConstructor;
-import net.aya.angular.dtos.AccountHistoryDTO;
-import net.aya.angular.dtos.BankAccountDTO;
-import net.aya.angular.dtos.OperationDTO;
+import net.aya.angular.dtos.*;
 import net.aya.angular.services.BankAccountNotFoundException;
 import net.aya.angular.services.BankAccountService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,9 +38,10 @@ class BankAccountRestController {
             @PathVariable String accountId,
             @RequestParam(name="page",defaultValue = "0") int page,
             @RequestParam(name="size",defaultValue = "5")int size) throws BankAccountNotFoundException {
-        return bankAccountService.getAccountHistory(accountId,page,size);
+        return bankAccountService.getAccountHistory(accountId, page, size);
+
     }
- /*   @PostMapping("/accounts/debit")
+    @PostMapping("/accounts/debit")
     public DebitDTO debit(@RequestBody DebitDTO debitDTO) throws BankAccountNotFoundException, BalanceNotSufficientException {
         this.bankAccountService.debit(debitDTO.getAccountId(),debitDTO.getAmount(),debitDTO.getDescription());
         return debitDTO;
@@ -53,11 +52,11 @@ class BankAccountRestController {
         return creditDTO;
     }
     @PostMapping("/accounts/transfer")
-    public void transfer(@RequestBody TransferRequestDTO transferRequestDTO) throws BankAccountNotFoundException, BalanceNotSufficientException {
-        this.bankAccountService.transfer(
-                transferRequestDTO.getAccountSource(),
-                transferRequestDTO.getAccountDestination(),
+    public void transfer(@RequestBody TransferDTO transferRequestDTO) throws BankAccountNotFoundException, BalanceNotSufficientException {
+        bankAccountService.transfer(
+                transferRequestDTO.getAccountSourceId(),
+                transferRequestDTO.getAccountDestinationId(),
                 transferRequestDTO.getAmount());
-    }*/
+    }
 
 }

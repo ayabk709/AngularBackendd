@@ -4,6 +4,7 @@ import lombok.Data;
 import net.aya.angular.entities.AccountStatus;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class currentBankAccountDTO extends BankAccountDTO {
@@ -13,4 +14,5 @@ public class currentBankAccountDTO extends BankAccountDTO {
     private AccountStatus status;
     private custumorDTO customerDTO;
     private double overDraft;
+
 }

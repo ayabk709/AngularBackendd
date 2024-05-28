@@ -9,9 +9,11 @@ public interface BankAccountService {
    custumorDTO saveCustumor(custumorDTO c);
    custumorDTO updateCustomer(custumorDTO c);
    void deleteCustomer(Long customerId);
+
     currentBankAccountDTO savecurrentBankAcocunt(double balance, double overdraft, Long custumorId);
     SavingBankAccountDTO saveSavingBankAcocunt(double balance, double interestRate, Long custumorId);
     List<custumorDTO> listCustumors();
+    List<custumorDTO> Search( String keyword);
     BankAccountDTO getBankAccount(String id) throws BankAccountNotFoundException;
     List<BankAccountDTO> listBankAccounts();
 

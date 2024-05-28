@@ -31,7 +31,7 @@ private Custumor custumor;
 //parsque on a une relation bidirectionnelle
     //serialization
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-@OneToMany(mappedBy = "bankAccount",fetch = FetchType.LAZY)
+@OneToMany(mappedBy = "bankAccount",fetch = FetchType.EAGER)
 private List<Operation> operations;
 
 
