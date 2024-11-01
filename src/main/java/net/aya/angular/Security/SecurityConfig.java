@@ -69,10 +69,12 @@ public class SecurityConfig {
                                 "/swagger-resources/**",
                                 "/webjars/**",
                                 "/swagger-ui.html",
-                                "/accounts/**"
+                                "/accounts/**",
+                                "/translations/**" // Add this line
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
+
                 .oauth2ResourceServer(oa -> oa.jwt(Customizer.withDefaults()))
                 .build();
     }
